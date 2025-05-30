@@ -2,7 +2,7 @@
 
 A comprehensive backend service for personal finance management built with Node.js, Express, and MongoDB. Features receipt processing with OCR, expense categorization using AI, budget management, and product price comparison.
 
-## 🚀 Features (For Now)
+## 🚀 Features (Till 2025-05-31)
 
 - **Receipt Processing**: OCR text extraction using Google Vision API
 - **AI Expense Classification**: Automatic expense categorization using DeepSeek-R1 LLM
