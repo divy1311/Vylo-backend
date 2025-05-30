@@ -1,0 +1,248 @@
+[
+  {
+    "code": "FOD",
+    "name": "Food & Dining",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "FOD-REST",
+    "name": "Restaurants & Cafés",
+    "parent": "FOD",
+    "is_builtin": true
+  },
+  {
+    "code": "FOD-DEL",
+    "name": "Food Delivery (Swiggy, Zomato)",
+    "parent": "FOD",
+    "is_builtin": true
+  },
+  {
+    "code": "FOD-GRO",
+    "name": "Groceries & Liquor Stores",
+    "parent": "FOD",
+    "is_builtin": true
+  },
+
+  {
+    "code": "HOU",
+    "name": "Housing & Utilities",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "HOU-RENT",
+    "name": "Rent / Society Maintenance",
+    "parent": "HOU",
+    "is_builtin": true
+  },
+  {
+    "code": "HOU-ELC",
+    "name": "Electricity Bills",
+    "parent": "HOU",
+    "is_builtin": true
+  },
+  {
+    "code": "HOU-WAT",
+    "name": "Water & Sewage",
+    "parent": "HOU",
+    "is_builtin": true
+  },
+  {
+    "code": "HOU-GAS",
+    "name": "LPG / PNG Refills",
+    "parent": "HOU",
+    "is_builtin": true
+  },
+  {
+    "code": "HOU-TEL",
+    "name": "Broadband / Land-line / Mobile Post-paid",
+    "parent": "HOU",
+    "is_builtin": true
+  },
+
+  { "code": "TRN", "name": "Transport", "parent": null, "is_builtin": true },
+  {
+    "code": "TRN-FUEL",
+    "name": "Fuel & EV Charging",
+    "parent": "TRN",
+    "is_builtin": true
+  },
+  {
+    "code": "TRN-RIDE",
+    "name": "Ride-hailing & Rentals",
+    "parent": "TRN",
+    "is_builtin": true
+  },
+  {
+    "code": "TRN-PUB",
+    "name": "Public Transport & Flights",
+    "parent": "TRN",
+    "is_builtin": true
+  },
+  {
+    "code": "TRN-TOL",
+    "name": "Tolls & Parking",
+    "parent": "TRN",
+    "is_builtin": true
+  },
+
+  {
+    "code": "SHO",
+    "name": "Shopping & Personal Goods",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "SHO-CLO",
+    "name": "Clothing & Footwear",
+    "parent": "SHO",
+    "is_builtin": true
+  },
+  {
+    "code": "SHO-ELE",
+    "name": "Electronics & Gadgets",
+    "parent": "SHO",
+    "is_builtin": true
+  },
+  {
+    "code": "SHO-HOM",
+    "name": "Home & Kitchen / Furniture",
+    "parent": "SHO",
+    "is_builtin": true
+  },
+
+  {
+    "code": "HFC",
+    "name": "Health & Fitness",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "HFC-MED",
+    "name": "Medicines, Hospitals, Diagnostics",
+    "parent": "HFC",
+    "is_builtin": true
+  },
+  {
+    "code": "HFC-GYM",
+    "name": "Gym / Yoga / Sports Club",
+    "parent": "HFC",
+    "is_builtin": true
+  },
+
+  {
+    "code": "EDU",
+    "name": "Education & Learning",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "EDU-SUB",
+    "name": "Tuition, Courses, Books",
+    "parent": "EDU",
+    "is_builtin": true
+  },
+
+  {
+    "code": "ENT",
+    "name": "Entertainment & Leisure",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "ENT-SUB",
+    "name": "Streaming & Gaming Subscriptions",
+    "parent": "ENT",
+    "is_builtin": true
+  },
+  {
+    "code": "ENT-MOV",
+    "name": "Movies, Events, Theme Parks",
+    "parent": "ENT",
+    "is_builtin": true
+  },
+  {
+    "code": "ENT-VAC",
+    "name": "Vacations & Hotels",
+    "parent": "ENT",
+    "is_builtin": true
+  },
+
+  {
+    "code": "FIN",
+    "name": "Finance & Investments",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "FIN-INS",
+    "name": "Insurance Premiums",
+    "parent": "FIN",
+    "is_builtin": true
+  },
+  {
+    "code": "FIN-INV",
+    "name": "Investments (MF, Stocks, Gold, Crypto)",
+    "parent": "FIN",
+    "is_builtin": true
+  },
+  {
+    "code": "FIN-LOA",
+    "name": "Loan EMIs",
+    "parent": "FIN",
+    "is_builtin": true
+  },
+  {
+    "code": "FIN-FEE",
+    "name": "Bank / Card Fees & Interest",
+    "parent": "FIN",
+    "is_builtin": true
+  },
+
+  {
+    "code": "GOV",
+    "name": "Government Fees & Taxes",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "GOV-TAX",
+    "name": "Income-tax, GST, Challans",
+    "parent": "GOV",
+    "is_builtin": true
+  },
+
+  {
+    "code": "GFT",
+    "name": "Gifts & Donations",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "GFT-DON",
+    "name": "Presents, Charity, Shagun",
+    "parent": "GFT",
+    "is_builtin": true
+  },
+
+  {
+    "code": "PER",
+    "name": "Personal Care & Services",
+    "parent": null,
+    "is_builtin": true
+  },
+  {
+    "code": "PER-SAL",
+    "name": "Salon, Spa, Grooming",
+    "parent": "PER",
+    "is_builtin": true
+  },
+
+  {
+    "code": "MIS",
+    "name": "Miscellaneous / Unrecognised",
+    "parent": null,
+    "is_builtin": true
+  }
+]
