@@ -4,15 +4,17 @@
 
 A comprehensive backend service for personal finance management built with Node.js, Express, and MongoDB. Features receipt processing with OCR, expense categorization using AI, budget management, income tracking, and product price comparison.
 
-## 🚀 Features (Till 2025-05-31)
+## 🚀 Features
 
 - **Receipt Processing**: OCR text extraction using Google Vision API
 - **AI Expense Classification**: Automatic expense categorization using DeepSeek-R1 LLM
 - **Budget Management**: Monthly envelope budgeting with category-wise tracking
 - **Income Tracking**: Monthly income recording with multiple source support
+- **Savings Analysis**: Monthly and yearly savings calculations and insights
 - **Shopping Search**: Product price comparison across 50+ Indian e-commerce stores
 - **User Authentication**: JWT-based authentication system
 - **Expense Tracking**: Daily expense entries with detailed categorization
+- **Conversational Interface**: Natural language processing for financial queries
 
 ## 🛠 Tech Stack
 
@@ -21,7 +23,9 @@ A comprehensive backend service for personal finance management built with Node.
 - **Database**: MongoDB
 - **Authentication**: JSON Web Tokens (JWT)
 - **OCR**: Google Vision API
-- **AI**: DeepSeek-R1-70B
+- **AI Models**: 
+  - DeepSeek-R1-70B (via Together AI) for intent extraction & classification
+  - DeepSeek-R1-Distill-Llama-70B for response generation
 - **Web Scraping**: Axios + Cheerio
 
 ## 📋 Prerequisites
@@ -35,8 +39,8 @@ A comprehensive backend service for personal finance management built with Node.
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd Personal-Finance/backend
+   git clone https://github.com/yourusername/vylo.git
+   cd vylo/backend
    ```
 
 2. **Install dependencies**
