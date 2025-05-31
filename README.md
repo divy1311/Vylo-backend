@@ -1,6 +1,6 @@
 # Personal Finance Backend API
 
-![Vylo](./images/github-social-preview.png)
+![Vylo](./images/github-social-preview.jpg)
 
 A comprehensive backend service for personal finance management built with Node.js, Express, and MongoDB. Features receipt processing with OCR, expense categorization using AI, budget management, income tracking, and product price comparison.
 
