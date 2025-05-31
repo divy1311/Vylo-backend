@@ -1,12 +1,13 @@
 # Personal Finance Backend API
 
-A comprehensive backend service for personal finance management built with Node.js, Express, and MongoDB. Features receipt processing with OCR, expense categorization using AI, budget management, and product price comparison.
+A comprehensive backend service for personal finance management built with Node.js, Express, and MongoDB. Features receipt processing with OCR, expense categorization using AI, budget management, income tracking, and product price comparison.
 
 ## 🚀 Features (Till 2025-05-31)
 
 - **Receipt Processing**: OCR text extraction using Google Vision API
 - **AI Expense Classification**: Automatic expense categorization using DeepSeek-R1 LLM
 - **Budget Management**: Monthly envelope budgeting with category-wise tracking
+- **Income Tracking**: Monthly income recording with multiple source support
 - **Shopping Search**: Product price comparison across 50+ Indian e-commerce stores
 - **User Authentication**: JWT-based authentication system
 - **Expense Tracking**: Daily expense entries with detailed categorization
@@ -76,7 +77,8 @@ backend/
 │   ├── budgets.js              # Budget management
 │   ├── entries.js              # Expense entries
 │   ├── receipts.js             # Receipt processing & OCR
-│   └── shopping.js             # Product price comparison
+│   ├── shopping.js             # Product price comparison
+│   └── income.js               # Income management
 ├── main.js                     # Application entry point
 ├── package.json
 └── README.md
@@ -103,6 +105,13 @@ backend/
 - `POST /api/v1/budgets` - Create/update monthly budget
 - `GET /api/v1/budgets/:month` - Get specific month budget
 - `GET /api/v1/budgets/:month/remaining` - Get remaining budget
+
+### Income Management
+- `GET /api/v1/income` - Get all monthly income records
+- `POST /api/v1/income` - Set/create monthly income
+- `GET /api/v1/income/:month` - Get specific month income
+- `PUT /api/v1/income/:month` - Update monthly income
+- `DELETE /api/v1/income/:month` - Delete monthly income record
 
 ### Shopping Price Comparison
 - `POST /api/v1/shopping/search` - Search products (most relevant)
@@ -177,6 +186,35 @@ curl -X POST http://localhost:4000/api/v1/budgets \
   }'
 ```
 
+### Set Monthly Income
+```bash
+curl -X POST http://localhost:4000/api/v1/income \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "month": "2024-01",
+    "total": 75000,
+    "sources": {
+      "salary": 65000,
+      "freelance": 10000
+    }
+  }'
+```
+
+### Update Monthly Income
+```bash
+curl -X PUT http://localhost:4000/api/v1/income/2024-01 \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "total": 80000,
+    "sources": {
+      "salary": 65000,
+      "freelance": 15000
+    }
+  }'
+```
+
 ### Search Products
 ```bash
 curl -X POST http://localhost:4000/api/v1/shopping/search \
@@ -238,6 +276,7 @@ Ensure MongoDB is running and create the required database:
 use pf_dev
 db.createCollection('user_budgets')
 db.createCollection('user_entries')
+db.createCollection('user_income')
 db.createCollection('budget_reassignments')
 ```
 

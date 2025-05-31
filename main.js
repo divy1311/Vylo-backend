@@ -20,6 +20,8 @@ const receiptRoutes      = require('./routes/receipts');
 const entriesRoutes     = require('./routes/entries');
 const budgetRoutes       = require('./routes/budgets');
 const shoppingRoutes     = require('./routes/shopping');
+const incomeRoutes       = require('./routes/income');
+const savingsRoutes      = require('./routes/savings');
 
 const app = express();
 
@@ -33,6 +35,8 @@ app.use('/api/v1/auth',         authRoutes);        // signup / login / refresh
 app.use('/api/v1/receipts', requireAuth, receiptRoutes);
 app.use('/api/v1/entries', requireAuth,  entriesRoutes);
 app.use('/api/v1/budgets',      budgetRoutes);
+app.use('/api/v1/income',     requireAuth, incomeRoutes); // income entries
+app.use('/api/v1/savings',    requireAuth, savingsRoutes);
 app.use('/api/v1/shopping',     shoppingRoutes);
 
 // Health check
