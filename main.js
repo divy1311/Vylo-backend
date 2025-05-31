@@ -22,6 +22,7 @@ const budgetRoutes       = require('./routes/budgets');
 const shoppingRoutes     = require('./routes/shopping');
 const incomeRoutes       = require('./routes/income');
 const savingsRoutes      = require('./routes/savings');
+const chatRoutes         = require('./routes/chat');
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/api/v1/budgets',      budgetRoutes);
 app.use('/api/v1/income',     requireAuth, incomeRoutes); // income entries
 app.use('/api/v1/savings',    requireAuth, savingsRoutes);
 app.use('/api/v1/shopping',     shoppingRoutes);
+app.use('/api/v1/chat',       requireAuth, chatRoutes);
 
 // Health check
 app.get('/api/v1/health', (req, res) => {

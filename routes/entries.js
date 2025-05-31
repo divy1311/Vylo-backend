@@ -43,9 +43,79 @@ router.use(async (req, res, next) => {
   next();
 });
 
-// GET / – all categories
+// GET / – get user entries filtered by category and month
 router.get('/', async (req, res) => {
-  res.json({ categories });
+  const { category, month } = req.query;
+
+  // Parse categories (can be single or multiple)
+  let categories = [];
+  if (category) {
+    categories = Array.isArray(category) ? category : [category];
+  }
+
+  // Parse months (can be single or multiple)
+  let months = [];
+  if (month) {
+    months = Array.isArray(month) ? month : [month];
+
+    // Validate month parameter format (YYYY-MM)
+    const invalidMonth = months.find(m => !/^\d{4}-\d{2}$/.test(m));
+    if (invalidMonth) {
+      return res.status(400).json({ error: 'month parameters must be in YYYY-MM format' });
+    }
+  }
+
+  // At least one filter must be provided
+  if (months.length === 0) {
+    return res.status(400).json({ error: 'at least one month parameter is required' });
+  }
+
+  try {
+    const userId = new ObjectId(req.userId);
+    const result = [];
+
+    // Process each requested month
+    for (const currentMonth of months) {
+      // Query entries for the specific user and month
+      const userMonthData = await userEntries.findOne(
+        { userId },
+        { projection: { [currentMonth]: 1, _id: 0 } }
+      );
+
+      if (!userMonthData || !userMonthData[currentMonth]) {
+        continue; // Skip if no data for this month
+      }
+
+      const monthData = userMonthData[currentMonth];
+
+      // Iterate through each day in the month data
+      Object.keys(monthData).forEach(day => {
+        if (monthData[day]?.entries) {
+          // Filter entries by the requested categories (or get all if no category filter)
+          let matchingEntries = monthData[day].entries;
+
+          if (categories.length > 0) {
+            matchingEntries = matchingEntries.filter(entry =>
+              categories.includes(entry.code)
+            );
+          }
+
+          // Add matching entries with their date
+          matchingEntries.forEach(entry => {
+            result.push({
+              ...entry,
+              date: `${currentMonth}-${day}`
+            });
+          });
+        }
+      });
+    }
+
+    res.json({ entries: result });
+  } catch (err) {
+    console.error('Failed to retrieve user entries:', err);
+    res.status(500).json({ error: 'failed to retrieve user entries' });
+  }
 });
 
 
