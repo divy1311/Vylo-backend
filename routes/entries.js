@@ -165,4 +165,98 @@ router.post('/add-user-entries', async (req, res) => {
   }
 });
 
+// DELETE /:date/:entryId - Delete a specific entry by ID
+router.delete('/:date/:entryId', async (req, res) => {
+  const { date, entryId } = req.params;
+
+  // Validate date format (YYYY-MM-DD)
+  if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return res.status(400).json({ error: 'date must be in YYYY-MM-DD format' });
+  }
+
+  // Validate entryId format
+  if (!entryId) {
+    return res.status(400).json({ error: 'entry ID is required' });
+  }
+
+  try {
+    const userId = new ObjectId(req.userId);
+    const [year, month, day] = date.split('-');
+    const yearMonth = `${year}-${month}`;
+
+    // Find and update the document to remove the specific entry
+    const result = await userEntries.updateOne(
+      { userId, [`${yearMonth}.${day}.entries`]: { $exists: true } },
+      { $pull: { [`${yearMonth}.${day}.entries`]: { id: entryId } } }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: 'No entries found for this date' });
+    }
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: 'Entry not found with the specified ID' });
+    }
+
+    res.json({ message: 'entry deleted successfully' });
+  } catch (err) {
+    console.error('Failed to delete entry:', err);
+    res.status(500).json({ error: 'failed to delete entry' });
+  }
+});
+
+// DELETE /:date - Delete all entries for a specific date
+router.delete('/:date', async (req, res) => {
+  const { date } = req.params;
+
+  // Validate if it's a date (YYYY-MM-DD) or a month (YYYY-MM)
+  let isFullDate = false;
+  let yearMonth, day;
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    // It's a full date (YYYY-MM-DD)
+    isFullDate = true;
+    [yearMonth, day] = [date.substring(0, 7), date.substring(8, 10)];
+  } else if (/^\d{4}-\d{2}$/.test(date)) {
+    // It's a month (YYYY-MM)
+    yearMonth = date;
+  } else {
+    return res.status(400).json({ error: 'date must be in YYYY-MM-DD or YYYY-MM format' });
+  }
+
+  try {
+    const userId = new ObjectId(req.userId);
+    let result;
+
+    if (isFullDate) {
+      // Delete entries for specific day
+      result = await userEntries.updateOne(
+        { userId },
+        { $unset: { [`${yearMonth}.${day}`]: "" } }
+      );
+    } else {
+      // Delete entries for entire month
+      result = await userEntries.updateOne(
+        { userId },
+        { $unset: { [`${yearMonth}`]: "" } }
+      );
+    }
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: 'No entries found for user' });
+    }
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: `No entries found for ${isFullDate ? 'this date' : 'this month'}` });
+    }
+
+    res.json({
+      message: `entries for ${isFullDate ? date : 'month ' + yearMonth} deleted successfully`
+    });
+  } catch (err) {
+    console.error('Failed to delete entries:', err);
+    res.status(500).json({ error: 'failed to delete entries' });
+  }
+});
+
 module.exports = router;

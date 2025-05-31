@@ -118,28 +118,93 @@ router.post('/', async (req, res) => {
               break;
             }
 
-            case 'comparePrices': {
-              const { product } = intent.parameters;
-              responseData = await axios.post(`${baseUrl}/api/v1/shopping/cheapest`,
-                { query: product },
+            case 'addEntries': {
+              const { date, entries } = intent.parameters;
+              responseData = await axios.post(
+                `${baseUrl}/api/v1/entries/add-user-entries`,
+                { date, entries },
                 { headers: authHeader }
               );
               break;
             }
 
-            case 'searchProducts': {
-              const { product } = intent.parameters;
-              responseData = await axios.post(`${baseUrl}/api/v1/shopping/search`,
-                { query: product },
+            case 'createBudget': {
+              const { month, total, categories } = intent.parameters;
+              responseData = await axios.post(
+                `${baseUrl}/api/v1/budgets`,
+                { month, total, categories },
                 { headers: authHeader }
               );
               break;
             }
 
-            case 'getStores': {
-              responseData = await axios.get(`${baseUrl}/api/v1/shopping/stores`, {
-                headers: authHeader
-              });
+            case 'setIncome': {
+              const { month, total, sources } = intent.parameters;
+              responseData = await axios.post(
+                `${baseUrl}/api/v1/income`,
+                { month, total, sources },
+                { headers: authHeader }
+              );
+              break;
+            }
+
+            case 'updateIncome': {
+              const { month, total, sources } = intent.parameters;
+              const payload = {};
+              if (total !== undefined) payload.total = total;
+              if (sources !== undefined) payload.sources = sources;
+
+              responseData = await axios.put(
+                `${baseUrl}/api/v1/income/${month}`,
+                payload,
+                { headers: authHeader }
+              );
+              break;
+            }
+
+            case 'deleteIncome': {
+              const { month } = intent.parameters;
+              responseData = await axios.delete(
+                `${baseUrl}/api/v1/income/${month}`,
+                { headers: authHeader }
+              );
+              break;
+            }
+
+            case 'reassignBudget': {
+              const { month, entryId, fromCategory, toCategory, amount } = intent.parameters;
+              responseData = await axios.post(
+                `${baseUrl}/api/v1/budgets/${month}/reassign`,
+                { entryId, fromCategory, toCategory, amount },
+                { headers: authHeader }
+              );
+              break;
+            }
+
+            case 'deleteBudget': {
+              const { month } = intent.parameters;
+              responseData = await axios.delete(
+                `${baseUrl}/api/v1/budgets/${month}`,
+                { headers: authHeader }
+              );
+              break;
+            }
+
+            case 'deleteEntries': {
+              const { date } = intent.parameters;
+              responseData = await axios.delete(
+                `${baseUrl}/api/v1/entries/${date}`,
+                { headers: authHeader }
+              );
+              break;
+            }
+
+            case 'deleteEntry': {
+              const { date, entryId } = intent.parameters;
+              responseData = await axios.delete(
+                `${baseUrl}/api/v1/entries/${date}/${entryId}`,
+                { headers: authHeader }
+              );
               break;
             }
 

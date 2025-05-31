@@ -226,4 +226,34 @@ router.post('/:month/reassign', async (req, res) => {
   }
 });
 
+// DELETE /:month – delete budget for a specific month
+router.delete('/:month', async (req, res) => {
+  const { month } = req.params;
+  if (!month || !/^\d{4}-\d{2}$/.test(month)) {
+    return res.status(400).json({ error: 'month must be in YYYY-MM format' });
+  }
+
+  try {
+    const userId = new ObjectId(req.userId);
+
+    const result = await userBudgets.updateOne(
+      { userId },
+      { $unset: { [`budgets.${month}`]: "" } }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ error: 'No budget records found for user' });
+    }
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ error: 'No budget found for this month' });
+    }
+
+    res.json({ message: 'budget deleted successfully' });
+  } catch (err) {
+    console.error('Failed to delete monthly budget:', err);
+    res.status(500).json({ error: 'failed to delete monthly budget' });
+  }
+});
+
 module.exports = router;
